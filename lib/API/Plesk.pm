@@ -150,6 +150,22 @@ sub render_xml {
     $xml;
 }
 
+my @xml_tags = qw(filter dataset);
+my %xml_tag_order = map { $xml_tags[$_] => $_ } (0 .. $#xml_tags);
+
+# sorts hash keys by their XML schema order
+sub by_tag_order {
+    for (($a, $b))
+    {
+        if (!exists $xml_tag_order{$_})
+        {
+          confess "BUG: do not know how to order tag $_"
+        }
+    }
+
+    $xml_tag_order{$a} <=> $xml_tag_order{$b}
+}
+
 # renders xml from hash
 sub _render_xml {
     my ( $hash ) = @_;
@@ -158,7 +174,7 @@ sub _render_xml {
 
     my $xml = '';
 
-    for my $tag ( keys %$hash ) {
+    for my $tag ( sort by_tag_order keys %$hash ) {
         my $value = $hash->{$tag};
         if ( ref $value eq 'HASH' ) {
             $value = _render_xml($value);
