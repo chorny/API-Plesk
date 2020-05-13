@@ -48,12 +48,12 @@ sub get {
     my $data = {
         filter => @_ > 2 ? \%filter : '',
         dataset => [
-            {'gen-info'     => ''},
-            {stat           => ''},
-            {permitions     => ''},
-            {limits         => ''},
-            {ippool         => ''},
-            {subsccriptions => ''},
+            {'gen-info'    => ''},
+            {stat          => ''},
+            {permissions   => ''},
+            {limits        => ''},
+            {ippool        => ''},
+            {subscriptions => ''},
         ]
     };
 
